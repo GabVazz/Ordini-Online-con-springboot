@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head th:replace="fragments/cdn :: cdn">
+</head>
+<body>
+	<div th:include="fragments/nav :: navbar"></div>
+
+	<div class="container">
+		<header class="page-header">
+			<h3>Riepilogo Ordine</h3>
+		</header>
+
+		<p>
+			Codice Ordine: <strong> <th:block th:text="${idOrdine}"></th:block>
+			</strong>
+		</p>
+
+		 <p>
+            Totale Ordine:
+            <strong>
+                <th:block th:text="${totale}"></th:block>
+            </strong>
+        </p>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width: 200px;">Marca</th>
+					<th style="width: 200px;">Modello</th>
+					<th style="width: 200px;">Prezzo</th>
+					<th style="width: 200px;">Quantità</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="articolo: ${ordineList}">
+					<td th:text="${articolo[0]}"></td>
+					<td th:text="${articolo[1]}"></td>
+					<td th:text="${articolo[2]} + ' €'"></td>
+					<td th:text="${articolo[3]}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="panel-body">
+			<div class="btn-group justify-content-between" role="group"
+				style="margin-top: 30px; margin-bottom: 30px;">
+				<a th:href="@{/ordini}" role="button" class="btn btn-default"
+					style="width: 200px;">Lista Ordini</a> <a th:href="@{/acquisti}"
+					role="button" class="btn btn-default" style="width: 200px;">Nuovo
+					Ordine</a>
+			</div>
+		</div>
+	</div>
+	<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head th:replace="fragments/cdn :: cdn"></head>
+<body>
+	<div th:include="fragments/nav :: navbar"></div>
+	<h1>Sezione amministratori</h1>
+
+	<ul class="nav nav-tabs">
+		<li role="presentation" class="active"><a th:href="@{/admin}">Home</a></li>
+		<li role="presentation"><a th:href="@{/admin/gestioneOrdini}">Gestione Ordini</a></li>
+		<li role="presentation"><a th:href="@{/admin/gestioneArticoli}">Gestione Articoli</a></li>
+		<li role="presentation"><a th:href="@{/admin/gestioneAmministratori}">Gestione Amministratori</a></li>
+	</ul>
+
+	<div class="row" style="margin-top: 30px;">
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h2>Articolo più venduto</h2>
+				</div>
+				<div class="panel-body">
+					<div class="col-md-8" th:each="articolo: ${aPiuVenduto}">
+						<h5>Marca: &nbsp;<span th:text="${articolo.marca}"></span></h5>
+						<h5>Modello: &nbsp;<span th:text="${articolo.modello}"></span></h5>
+						<h5>Prezzo: &nbsp;<span th:text="${#numbers.formatDecimal(articolo.prezzo, 1, 2, 'COMMA')}"></span></h5>
+					</div>
+					<div class="col-md-8" th:if="${aPiuVenduto == null}">
+						<p>Nessun articolo venduto</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h2>Ordine più costoso</h2>
+				</div>
+				<div class="panel-body">
+					<div class="col-md-8" th:each="ordine: ${oPiuCostoso}">
+						<h5>Numero Ordine: &nbsp;<span th:text="${ordine.idOrdine}"></span></h5>
+						<h5>Utente: &nbsp;<span th:text="${ordine.utente.username}"></span></h5>
+						<h5>Totale: &nbsp;<span th:text="${#numbers.formatDecimal(ordine.totale, 1, 2, 'COMMA')}"></span></h5>
+					</div>
+					<div class="col-md-8" th:if="${oPiuCostoso == null}">
+						<p>Nessun ordine effettuato</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head th:replace="fragments/cdn :: cdn">
+</head>
+<body>
+	<div th:include="fragments/nav :: navbar"></div>
+
+	<div class="container">
+		<header class="page-header">
+			<h3>Articoli presenti in catalogo</h3>
+		</header>
+
+		<p>
+			Totale carrello:
+			<th:block
+				th:text="${carrello?.totaleComplessivo() > 0 ? carrello?.totaleComplessivo(): '0.00'}">
+			</th:block>&nbsp;&euro;
+		</p>
+		
+		<table class = "table table-hover">
+			<thead>
+				<tr>
+					<th style = "width:200px;">Marca</th>
+					<th style = "width:200px;">Modello</th>
+					<th style = "width:200px;">Prezzo</th>
+					<th style = "width:200px;">&nbsp;</th>
+					<th style = "width:200px;">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each = "articolo: ${listaArticoli}">
+					<td th:text = "${articolo.marca}"></td>
+					<td th:text = "${articolo.modello}"></td>
+					<td th:text = "${#numbers.formatDecimal(articolo.prezzo, 1, 2, 'COMMA')}"></td>
+					<td>
+						<a th:href = "@{|/add/${articolo.idArticolo}|}">
+							<button type="button" class = "btn btn-success btn-sm">
+								<span class = "glyphicon glyphicon-plus"></span>&nbsp; Aggiungi
+							</button>
+						</a>
+					</td>
+					<td>
+						<a th:href = "@{|/articolo/${articolo.idArticolo}|}">
+							<button type="button" class = "btn btn-info btn-sm">
+								<span class = "glyphicon glyphicon-list-alt"></span>&nbsp; Dettagli
+							</button>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<a th:href = "@{/carrello}" role = "button" class = "btn btn-warning">Riepilogo Carrello</a>
+
+	</div>
+	<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>

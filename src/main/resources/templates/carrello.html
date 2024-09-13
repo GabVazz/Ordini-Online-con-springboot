@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head th:replace="fragments/cdn :: cdn">
+</head>
+<body>
+	<div th:include="fragments/nav :: navbar"></div>
+
+	<div class="container">
+		<header class="page-header">
+			<h3>Articoli presenti nel carrello</h3>
+		</header>
+
+		<p>
+			Totale carrello:
+			<th:block
+				th:text="${carrello?.totaleComplessivo() > 0 ? carrello?.totaleComplessivo() + ' €': '0.00 €'}">
+			</th:block>
+		</p>
+		
+		<table class = "table table-hover">
+			<thead>
+				<tr>
+					<th style = "width:200px;">Marca</th>
+					<th style = "width:200px;">Modello</th>
+					<th style = "width:200px;">Quantità</th>
+					<th style = "width:200px;">Parziale</th>
+					<th style = "width:200px;">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each = "articolo: ${listaArticoli}">
+					<td th:text = "${articolo[0]}"></td>
+					<td th:text = "${articolo[1]}"></td>
+					<td th:text = "${articolo[3]}"></td>
+					<td th:text = "${carrello.totaleParziale(articolo[4]) + ' €'}"></td>
+					<td>
+						<a th:href = "@{|/remove/${articolo[4]}|}">
+							<button type="button" class = "btn btn-success btn-sm">
+								<span class = "glyphicon glyphicon-plus"></span>&nbsp; Rimuovi
+							</button>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<a th:href = "@{/checkout}" role = "button" class = "btn btn-warning">Checkout</a>
+
+	</div>
+	<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head th:replace="fragments/cdn :: cdn">
+</head>
+<body>
+	<div th:include="fragments/nav :: navbar"></div>
+	<div class="container">
+		<header class="page-header">
+			<h3>Inserisci i dati per il login</h3>
+		</header>
+		<form th:action="@{/loginAdmin}" method="post"
+			class="form-horizontal">
+
+			<!-- Username -->
+			<div class="form-group">
+				<label class="col-md-1 control-label">Username</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"> <i
+							class="glyphicon glyphicon-user"></i>
+						</span> <input type="text" name="username"
+							placeholder="Username..." class="form-control">
+					</div>
+				</div>
+			</div>
+
+			<!-- Password -->
+			<div class="form-group">
+				<label class="col-md-1 control-label">Password</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon"> <i
+							class="glyphicon glyphicon-lock"></i>
+						</span> <input type="password" name="password"
+							placeholder="Password..." class="form-control">
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4 col-md-offset-1">
+					<button type="submit" class="btn btn-warning">
+						Registrati&nbsp;&nbsp;<span class="glyphicon glyphicon-send"></span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>

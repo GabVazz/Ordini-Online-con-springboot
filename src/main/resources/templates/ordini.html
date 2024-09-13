@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head th:replace="fragments/cdn :: cdn"></head>
+<body>
+	<div th:include="fragments/nav :: navbar"></div>
+
+	<div class="container">
+		<header class="page-header">
+			<h3>Riepilogo Ordini</h3>
+		</header>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width:200px;">Codice Ordine</th>
+					<th style="width:200px;">Data Ordine</th>
+					<th style="width:200px;">Totale</th>
+					<th style="width:200px;">Dettaglio</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="ordine: ${ordiniList}">
+					<td th:text="${ordine.idOrdine}"></td>
+					<td th:text="${#dates.format(ordine.data, 'dd/MM/YYYY')}"></td>
+					<td th:text="${ordine.totale} + ' €'"></td>
+					<td>
+						<a th:href="@{|/visualizza/${ordine.idOrdine}|}">
+							<button type="button" class="btn btn-info btn-sm">
+								<span class="glyphicon glyphicon-search"></span>&nbsp; Info
+							</button>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<a th:href="@{/acquisti}" role="button" class="btn btn-warning">Acquisti articoli</a>
+	</div>
+
+	<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>

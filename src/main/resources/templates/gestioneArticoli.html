@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head th:replace="fragments/cdn :: cdn">
+</head>
+<body>
+<div th:include="fragments/nav :: navbar"></div>
+    <div class="container">
+        <header class="page-header">
+            <h3>Gestione Articoli</h3>
+        </header>
+
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a th:href="@{/admin}">Home</a></li>
+            <li role="presentation"><a th:href="@{/admin/gestionOrdini}">Gestione Ordini</a></li>
+            <li role="presentation"><a th:href="@{/admin/gestioneArticoli}">Gestione Articoli</a></li>
+            <li role="presentation"><a th:href="@{/admin/gestioneAmministratori}">Gestione Amministratori</a></li>
+        </ul>
+
+        <div class="row">
+            <button class="btn btn-info" style="float: left; margin-top: 30px; margin-bottom: 30px;" onclick="show()">Nuovo Articolo</button>
+        </div>
+
+        <div class="alert alert-info" id="add-form" style="padding: 10px; margin-top: 30px; margin-bottom: 50px; display: none;">
+            <h4 class="alert-heading" style="text-align: center">Nuovo articolo</h4>
+            <form th:action="@{/admin/aggiungiArticolo}" th:object="${articolo}" id="articoloForm" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-1 control-label">Marca</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"> <i class="glyphicon glyphicon-home"></i></span>
+                            <input type="text" id="marca" name="marca" placeholder="Marca..." class="form-control" th:field="*{marca}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label">Modello</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"> <i class="glyphicon glyphicon-tag"></i></span>
+                            <input type="text" id="modello" name="modello" placeholder="Modello..." class="form-control" th:field="*{modello}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label">Prezzo</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"> <i class="glyphicon glyphicon-tag"></i></span>
+                            <input type="number" id="prezzo" name="prezzo" placeholder="Prezzo..." class="form-control col-md-2" th:field="*{prezzo}" min="0.1" step="0.1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-1 control-label">Disponibile</label>
+                    <div class="col-md-1 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"> <i class="glyphicon glyphicon-pencil"></i></span>
+                            <input type="checkbox" id="disponibile" name="disponibile" class="form-control col-md-2" th:field="*{disponibile}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-4">
+                        <button type="submit" class="btn btn-primary">Aggiungi&nbsp;&nbsp;<span class="glyphicon glyphicon-send"></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Marca</th>
+                    <th>Modello</th>
+                    <th>Disp</th>
+                    <th>Prezzo</th>
+                    <th>Elimina</th>
+                    <th>Info</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="articolo: ${lista}">
+                    <td style="text-align: center;"><img style="width: 50px; margin: auto;" th:src="${articolo[5] != '/img/' ? articolo[5] : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'}"></td>
+                    <td style="vertical-align: middle;" th:text="${articolo[1]}"></td>
+                    <td style="vertical-align: middle;" th:text="${articolo[2]}"></td>
+                    <td style="vertical-align: middle;" th:text="${articolo[4]} == 'true' ? 'Si' : 'No'"></td>
+                    <td style="vertical-align: middle;" th:text="${#numbers.formatDecimal(articolo[3], 1, 2, 'COMMA')}"></td>
+                    <td style="vertical-align: middle;"><a th:href="@{|/admin/eliminaArticolo/${articolo[0]}|}" role="button" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-plus"></span>&nbsp; Elimina</a></td>
+                    <td style="vertical-align: middle;"><a th:href="@{|/admin/dettagliArticolo/${articolo[0]}|}" role="button" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-search"></span>&nbsp; Informazioni</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer th:include="fragments/footer :: footer"></footer>
+
+    <script>
+        function show() {
+            $('#add-form').fadeToggle(300);
+        }
+    </script>
+</body>
+</html>

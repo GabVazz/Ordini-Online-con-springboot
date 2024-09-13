@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head th:replace="fragments/cdn :: cdn">
+</head>
+<body>
+	<div th:include="fragments/nav :: navbar"></div>
+	<div class="container">
+		
+		<header class="page-header">
+			<h3>Logout</h3>
+		</header>
+		
+		<div class = "panel panel-default">
+			<div class = "panel-heading">
+				Effettuare il logout della sessione?
+			</div>
+		</div>
+		
+		<div class = "panel-body">
+			<div class = "btn-group justify-content-between" role = "group" style = "margin-top: 30px; margin-bottom:30px;">
+				<button class = "btn btn-default" style = "width:200px;" onclick = "document.location.href = 'acquisti'">
+					Torna agli acquisti
+				</button>
+				
+				<button class = "btn btn-default" style = "width:200px;" onclick = "document.location.href = 'logoutUtente'">
+					Logout
+				</button>
+			</div>
+		</div>
+	</div>
+	<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>
